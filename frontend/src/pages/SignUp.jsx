@@ -4,6 +4,7 @@ import { userDatacontext } from '../context/userContext'
 import axios from 'axios'
 import toast from "react-hot-toast";
 
+
 const SignUp = () => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({ name: '', email: '', password: '' })
@@ -14,7 +15,7 @@ const SignUp = () => {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const { serverUrl } = useContext(userDatacontext);
+  const { serverUrl, userData, setUserData } = useContext(userDatacontext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +27,7 @@ const SignUp = () => {
         { withCredentials: true }
       );
 
-
+      setUserData(res.data.user); // set user data in context
       toast.success(res.data.message); // success toast
       navigate("/signin");
 
@@ -57,7 +58,7 @@ const SignUp = () => {
       >
         {/* Heading */}
         <div className='text-center mb-6'>
-          <h2 className='text-3xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-400 bg-clip-text text-transparent mb-3'>
+          <h2 className='text-3xl font-bold bg-linear-to-r from-cyan-400 via-blue-400 to-violet-400 bg-clip-text text-transparent mb-3'>
             Register
           </h2>
           <p className='text-cyan-600 text-sm font-light tracking-widest'>

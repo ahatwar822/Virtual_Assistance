@@ -14,7 +14,7 @@ const SignIn = () => {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const { serverUrl } = useContext(userDatacontext);
+  const { serverUrl, userData, setUserData } = useContext(userDatacontext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +26,7 @@ const SignIn = () => {
         { withCredentials: true }
       );
 
+      setUserData(res.data.user); // set user data in context
       toast.success(res.data.message); // success toast
       navigate("/");
 
